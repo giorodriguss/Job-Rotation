@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentual de Representação por Estado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Percentual de Representação por Estado</h2>
+  <table>
+    <tr>
+      <th>Estado</th>
+      <th>Percentual de Representação (%)</th>
+    </tr>
+    <tbody id="tabelaResultados">
+    </tbody>
+  </table>
+
+  <script>
+    const faturamentoPorEstado = {
+        'SP': 67836.43,
+        'RJ': 36678.66,
+        'MG': 29229.88,
+        'ES': 27165.48,
+        'Outros': 19849.53
+    };
+
+    // total mensal
+    const totalMensal = Object.values(faturamentoPorEstado).reduce((acc, valor) => acc + valor, 0);
+
+    // percentual de representação de cada estado
+    const percentuaisPorEstado = {};
+    for (const estado in faturamentoPorEstado) {
+        percentuaisPorEstado[estado] = (faturamentoPorEstado[estado] / totalMensal) * 100;
+    }
+
+    //resultados no HTML
+    const tabelaResultados = document.getElementById('tabelaResultados');
+    for (const estado in percentuaisPorEstado) {
+        const percentual = percentuaisPorEstado[estado].toFixed(2);
+        const row = `<tr><td>${estado}</td><td>${percentual}%</td></tr>`;
+        tabelaResultados.insertAdjacentHTML('beforeend', row);
+    }
+  </script>
+</body>
+</html>

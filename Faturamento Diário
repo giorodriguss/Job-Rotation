@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Métricas de Faturamento Diário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Métricas de Faturamento Diário</h2>
+  <table>
+    <tr>
+      <th>Métrica</th>
+      <th>Valor</th>
+    </tr>
+    <tr>
+      <td>Menor valor de faturamento diário</td>
+      <td id="menorValor"></td>
+    </tr>
+    <tr>
+      <td>Maior valor de faturamento diário</td>
+      <td id="maiorValor"></td>
+    </tr>
+    <tr>
+      <td>Número de dias com faturamento acima da média mensal</td>
+      <td id="diasAcimaDaMedia"></td>
+    </tr>
+  </table>
+  <script>
+  const faturamentoDiario = [
+    {"dia": 1, "valor": 22174.1664},
+    {"dia": 2, "valor": 24537.6698},
+    {"dia": 3, "valor": 26139.6134},
+    {"dia": 6, "valor": 26742.6612},
+    {"dia": 8, "valor": 42889.2258},
+    {"dia": 9, "valor": 46251.174},
+    {"dia": 10, "valor": 11191.4722},
+    {"dia": 13, "valor": 3847.4823},
+    {"dia": 14, "valor": 373.7838},
+    {"dia": 15, "valor": 2659.7563},
+    {"dia": 16, "valor": 48924.2448},
+    {"dia": 17, "valor": 18419.2614},
+    {"dia": 20, "valor": 35240.1826},
+    {"dia": 21, "valor": 43829.1667},
+    {"dia": 22, "valor": 18235.6852},
+    {"dia": 23, "valor": 4355.0662},
+    {"dia": 24, "valor": 13327.1025},
+    {"dia": 27, "valor": 25681.8318},
+    {"dia": 28, "valor": 1718.1221},
+    {"dia": 29, "valor": 13220.495},
+    {"dia": 30, "valor": 8414.61}
+];
+
+// valores de faturamento
+const valoresFaturamento = faturamentoDiario.map(dia => dia.valor);
+
+    // menor e o maior valor de faturamento diário
+    const menorValor = Math.min(...valoresFaturamento);
+    const maiorValor = Math.max(...valoresFaturamento);
+
+    // média mensal de faturamento
+    const mediaMensal = valoresFaturamento.reduce((acc, valor) => acc + valor, 0) / valoresFaturamento.length;
+
+    // número de dias com faturamento diário superior à média mensal
+    const diasAcimaDaMedia = valoresFaturamento.filter(valor => valor > mediaMensal).length;
+
+    // resultados no HTML
+    document.getElementById('menorValor').textContent = menorValor;
+    document.getElementById('maiorValor').textContent = maiorValor;
+    document.getElementById('diasAcimaDaMedia').textContent = diasAcimaDaMedia;
+  </script>
+</body>
+</html>
